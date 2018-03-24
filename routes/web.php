@@ -10,11 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('budgets')->uses('BudgetController@overview')->name('overview');
+Route::get('budgets/{budget}')->uses('BudgetController@display')->name('details');
 
-Route::get('/', function () {
-    return view('home');
-});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Auth::routes();

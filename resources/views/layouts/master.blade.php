@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}">
   </head>
   <body>
   <nav class="navbar has-shadow">
@@ -82,6 +82,20 @@
     </div>
   </div>
 </nav>
+<section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {{ $title }}
+        </h1>
+        @isset($subtitle)
+        <h2 class="subtitle">
+          {{ $subtitle }}
+        </h2>
+        @endisset
+      </div>
+    </div>
+  </section>
   @yield('content')
   </body>
 </html>
