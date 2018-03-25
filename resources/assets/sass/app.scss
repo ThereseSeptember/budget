@@ -1,8 +1,13 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 $primary: hsl(280, 96%, 29%);
 $link: #410261;
 $danger: hsl(0, 97%, 29%);
+$success: hsl(147, 97%, 29%);
+$info: hsl(207, 97%, 29%);
+
+$family-primary: 'Open Sans', sans-serif;
 
 @import "~bulma";

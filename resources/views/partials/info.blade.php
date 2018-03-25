@@ -1,4 +1,4 @@
-<div class="column is-4">
+<div class="column is-6-tablet is-4-fullhd">
     <div class="card" style="cursor:pointer;" onclick="window.location='{{ route('details', [3]) }}'">
         <header class="card-header">
             <p class="card-header-title">

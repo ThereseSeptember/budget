@@ -16,8 +16,51 @@ class BudgetController extends Controller
 
     public function display($budget)
     {
-        return view('details', [
-            'title'=>'MAD!'
+        return view('budgets.overview.main', [
+            'title'=>'MAD!',
+            'subtitle'=>'Overview'
         ]);
     }
+
+    public function categories($budget)
+    {
+        return view('budgets.categories.main', [
+            'title'=>'MAD!',
+            'subtitle'=>'Categories'
+        ]);
+    }
+
+    public function recurring($budget)
+    {
+        return view('budgets.recurring.main', [
+            'title'=>'MAD!',
+            'subtitle'=>'Recurring'
+        ]);
+    }
+
+    public function newEntry($budget)
+    {
+        return view('budgets.overview.new', [
+            'title'=>'MAD!',
+            'subtitle'=>'New Entry'
+        ]);
+    }
+
+    public function newCategory($budget)
+    {
+        return view('budgets.categories.new', [
+            'title'=>'MAD!',
+            'subtitle'=>'New Category'
+        ]);
+    }
+
+    public function newRecurring($budget)
+    {
+        return view('budgets.recurring.new', [
+            'title'=>'MAD!',
+            'subtitle'=>'New Recurring'
+        ]);
+    }
+
+
 }
