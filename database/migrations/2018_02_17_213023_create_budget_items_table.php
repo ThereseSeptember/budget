@@ -15,10 +15,13 @@ class CreateBudgetItemsTable extends Migration
     {
         Schema::create('budget_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id')->nullable();
             $table->string('name');
             $table->string('store');
             $table->decimal('price', 8, 2);
-            $table->string('note');
+            $table->enum('type', ['income', 'expense']);
+            $table->boolean('recurring')->default(0);
+            $table->string('location')->nullable();
             $table->datetime('occured_at')->nullable();
             $table->timestamps();
         });

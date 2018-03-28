@@ -16,11 +16,11 @@ class CreateBudgetItemLinksTable extends Migration
         Schema::create('budget_item_links', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('budget_item_id');
-            $table->unsignedInteger('budget_id');
+            $table->unsignedInteger('budget_period_id');
             $table->timestamps();
 
             $table->foreign('budget_item_id')->references('id')->on('budget_items');
-            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->foreign('budget_period_id')->references('id')->on('budget_periods');
 
 
         });

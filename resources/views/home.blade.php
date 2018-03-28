@@ -15,10 +15,9 @@
     </ul>
   </nav>
   <div class="columns is-multiline">
-    @include('partials.info')
-    @include('partials.info')
-    @include('partials.info')
-    @include('partials.info')
+    @foreach($budgets as $budget)
+      @include('partials.info', ['budget'=>$budget])
+    @endforeach
   </div>
 </div>
 </section>

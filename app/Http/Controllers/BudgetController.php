@@ -8,9 +8,11 @@ class BudgetController extends Controller
 {
     public function overview()
     {
+        $budgets = \App\Budget::whereUserId(auth()->id())->with('periods')->get();
         return view('home', [
             'title'=>'Budgets',
-            'subtitle'=>'- Welcome back!'
+            'subtitle'=>'- Welcome back!',
+            'budgets'=>$budgets
         ]);
     }
 
