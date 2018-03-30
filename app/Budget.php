@@ -10,4 +10,14 @@ class Budget extends Model
     {
         return $this->hasMany(BudgetPeriod::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function recurrings()
+    {
+        return $this->hasMany(Recurring::class);
+    }
 }

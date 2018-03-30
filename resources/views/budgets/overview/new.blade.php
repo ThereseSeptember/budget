@@ -55,7 +55,7 @@
                 <button class="button is-link">Submit</button>
               </div>
               <div class="control">
-                <a href="{{ route('details', [3]) }}" class="button is-text">Cancel</a>
+                <a href="{{ route('details', [$budget->id]) }}" class="button is-text">Cancel</a>
               </div>
             </div>
           </div>

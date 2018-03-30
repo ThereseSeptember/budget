@@ -4,7 +4,7 @@
     <div class="container">
         <div class="columns">
             <div class="column is-4">
-                <a href="{{ route('newRecurring', [3]) }}" class="button is-primary">
+                <a href="{{ route('newRecurring', [$budget->id]) }}" class="button is-primary">
                     <span class="icon">
                       <i class="fal fa-plus"></i>
                     </span>
@@ -14,9 +14,9 @@
             <div class="column is-4">
                 <div class="tabs is-centered">
                     <ul>
-                        <li><a href="{{ route('details', [3]) }}">Overview</a></li>
-                    <li><a href="{{ route('categories', [3]) }}">Categories</a></li>
-                        <li class="is-active"><a href="{{ route('recurring', [3]) }}">Recurring</a></li>
+                        <li><a href="{{ route('details', [$budget->id]) }}">Overview</a></li>
+                    <li><a href="{{ route('categories', [$budget->id]) }}">Categories</a></li>
+                        <li class="is-active"><a href="{{ route('recurring', [$budget->id]) }}">Recurring</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <nav class="breadcrumb is-right" aria-label="breadcrumbs">
                     <ul>
                         <li><a href="{{ route('overview') }}">Budgets</a></li>
-                        <li><a href="{{ route('details', [3]) }}">{{ $title }}</a></li>
+                        <li><a href="{{ route('details', [$budget->id]) }}">{{ $title }}</a></li>
                         <li class="is-active"><a href="#" aria-current="page">Recurring</a></li>
                     </ul>
                 </nav>

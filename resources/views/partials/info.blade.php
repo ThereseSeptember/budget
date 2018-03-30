@@ -1,5 +1,5 @@
 <div class="column is-6-tablet is-4-fullhd">
-    <div class="card" style="cursor:pointer;" onclick="window.location='{{ route('details', [3]) }}'">
+    <div class="card" style="cursor:pointer;" onclick="window.location='{{ route('details', [$budget->id]) }}'">
         <header class="card-header">
             <p class="card-header-title">
                 {{ $budget->name }}

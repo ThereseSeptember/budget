@@ -4,7 +4,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-4">
-      <a href="{{ route('newEntry', [3]) }}" class="button is-primary">
+      <a href="{{ route('newEntry',  [$budget->id]) }}" class="button is-primary">
                     <span class="icon">
                       <i class="fal fa-plus"></i>
                     </span>
@@ -15,8 +15,8 @@
           <div class="tabs is-centered">
               <ul>
                 <li class="is-active"><a>Overview</a></li>
-              <li><a href="{{ route('categories', [3]) }}">Categories</a></li>
-              <li><a href="{{ route('recurring', [3]) }}">Recurring</a></li>
+              <li><a href="{{ route('categories', [$budget->id]) }}">Categories</a></li>
+              <li><a href="{{ route('recurring',  [$budget->id]) }}">Recurring</a></li>
               </ul>
             </div>
       </div>
