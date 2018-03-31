@@ -57,7 +57,55 @@ class DatabaseSeeder extends Seeder
             'balance'=>1000
         ]);
 
-        //$recurring = $budget->recurrings()->create([])
+        $hotdogitem = $categories[2]->items()->create([
+            'name' => 'Hotdog',
+            'store' => 'Bilka',
+            'price' =>10,
+            'type' => 'expense',
+            'recurring' => 1 
+        ]);
+        
+        $hotdogitem->recurring()->create([
+            'type'=>'monthly',
+            'start_day'=>1,
+            'status'=>'active'
+        ]);
+
+        $spotifyitem = $categories[1]->items()->create([
+            'name' => 'Spotify',
+            'store' => 'Spotify',
+            'price' =>24.99,
+            'type' => 'expense',
+            'recurring' => 1,
+            'location' => 'losInternet'
+        ]);
+
+        $spotifyitem->recurring()->create([
+            'type'=>'monthly',
+            'start_day'=>15,
+            'status'=>'active'
+        ]);
+
+        $suitem = $categories[0]->items()->create([
+            'name' => 'SU-BABY',
+            'store' => 'Staten',
+            'price' =>5250,
+            'type' => 'income',
+            'recurring' => 1
+        ]);
+
+        $suitem->recurring()->create([
+            'type'=>'monthly',
+            'start_day'=>1,
+            'status'=>'disabled'
+        ]);
+
+
+        /*$recurring = $budget->recurrings()->create([
+            'type'=>'monthly',
+            'status'=>'active'
+            'start_day'=>1
+        ]);*/
 
         
     }

@@ -24,6 +24,8 @@ class CreateBudgetItemsTable extends Migration
             $table->string('location')->nullable();
             $table->datetime('occured_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
