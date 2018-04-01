@@ -16,6 +16,7 @@ class CreateBudgetPeriodsTable extends Migration
         Schema::create('budget_periods', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('budget_id');
+            $table->string('name');
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->decimal('spent', 11, 2)->nullable();

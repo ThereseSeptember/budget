@@ -47,114 +47,39 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($budget->recurrings as $recurring)
                 <tr>
-                    <td>Spotify</td>
-                    <td>149,00 kr</td>
-                    <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-music"></i></span><span>Spotify</span></span></td>
-                    <td><span class="tag is-info"><span class="icon is-small"><i class="fal fa-clock"></i></span><span>Monthly</span></span></td>
-                    <td>15th</td>
-                    <td>Active</td>
-                    <td>
-                            <p class="field">
-                                    <a class="button is-small is-info">
-                                            <span class="icon is-small">
-                                                <i class="fal fa-pause"></i>
-                                            </span>
-                                          </a>
-                                    <a class="button is-small is-dark">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-pencil"></i>
-                                                  </span>
-                                                </a>
-                                    <a class="button is-small is-danger">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-times"></i>
-                                                  </span>
-                                                </a>
-                                </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Digital Ocean</td>
-                    <td>200,00 kr</td>
-                    <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-server"></i></span><span>Server</span></span></td>
-                    <td><span class="tag is-info"><span class="icon is-small"><i class="fal fa-clock"></i></span><span>Monthly</span></span></td>
-                    <td>5th</td>
-                    <td>Active</td>
-                    <td>
-                            <p class="field">
-                                    <a class="button is-small is-info">
-                                            <span class="icon is-small">
-                                                <i class="fal fa-pause"></i>
-                                            </span>
-                                          </a>
-                                    <a class="button is-small is-dark">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-pencil"></i>
-                                                  </span>
-                                                </a>
-                                    <a class="button is-small is-danger">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-times"></i>
-                                                  </span>
-                                                </a>
-                                </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Runa</td>
-                    <td>210,00 kr</td>
-                    <td><span class="tag is-light"><span class="icon is-small"><i class="fal fa-book"></i></span><span>Insurance</span></span></td>
-                    <td><span class="tag is-light"><span class="icon is-small"><i class="fal fa-clock"></i></span><span>Monthly</span></span></td>
-                    <td>7th</td>
-                    <td>Inactive</td>
-                    <td>
-                            <p class="field">
-                                    <a class="button is-small is-success">
-                                            <span class="icon is-small">
-                                                <i class="fal fa-play"></i>
-                                            </span>
-                                          </a>
-                                    <a class="button is-small is-dark">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-pencil"></i>
-                                                  </span>
-                                                </a>
-                                    <a class="button is-small is-danger">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-times"></i>
-                                                  </span>
-                                                </a>
-                                </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Phone loan</td>
-                    <td>200,00 kr</td>
-                    <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-phone"></i></span><span>Cellular</span></span></td>
-                    <td><span class="tag is-info"><span class="icon is-small"><i class="fal fa-clock"></i></span><span>Monthly</span></span></td>
-                    <td>10th</td>
-                    <td>Active</td>
-                    <td>
-                            <p class="field">
-                                    <a class="button is-small is-info">
-                                            <span class="icon is-small">
-                                                <i class="fal fa-pause"></i>
-                                            </span>
-                                          </a>
-                                    <a class="button is-small is-dark">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-pencil"></i>
-                                                  </span>
-                                                </a>
-                                    <a class="button is-small is-danger">
-                                                  <span class="icon is-small">
-                                                      <i class="fal fa-times"></i>
-                                                  </span>
-                                                </a>
-                                </p>
-                    </td>
-                </tr>
+                        <td>{{ $recurring->item->name }}</td>
+                        <td>{{ number_format($recurring->item->price, 2, ',', '.') }} kr</td>
+                <td><span class="tag @if($recurring->status == 'disabled') is-light @else is-primary @endif"><span class="icon is-small"><i class="fal fa-{{ $recurring->item->category->icon }}"></i></span><span>{{ $recurring->item->category->name }}</span></span></td>
+                <td><span class="tag @if($recurring->status == 'disabled') is-light @else is-info @endif"><span class="icon is-small"><i class="fal fa-clock"></i></span><span>{{ ucfirst($recurring->type) }}</span></span></td>
+                        <td>{{ $recurring->start_day }}</td>
+                        <td>{{ ucfirst($recurring->status) }}</td>
+                        <td>
+                                <p class="field">
+                                <a href="{{ route('recurringToggleStatus', [$budget->id, $recurring->id]) }}" class="button is-small @if($recurring->status == 'disabled') is-success @else is-info @endif">
+                                                <span class="icon is-small">
+                                                    @if($recurring->status == 'disabled')
+                                                    <i class="fal fa-play"></i>
+                                                    @else
+                                                    <i class="fal fa-pause"></i>
+                                                    @endif
+                                                </span>
+                                              </a>
+                                        <a class="button is-small is-dark">
+                                                      <span class="icon is-small">
+                                                          <i class="fal fa-pencil"></i>
+                                                      </span>
+                                                    </a>
+                                        <a class="button is-small is-danger">
+                                                      <span class="icon is-small">
+                                                          <i class="fal fa-times"></i>
+                                                      </span>
+                                                    </a>
+                                    </p>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

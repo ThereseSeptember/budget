@@ -10,4 +10,9 @@ class BudgetItem extends Model
     {
         return $this->hasOne(Recurring::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

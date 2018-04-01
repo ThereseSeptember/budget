@@ -17,7 +17,7 @@ class CreateCategoryPeriodsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('period_id');
-            $table->decimal('budgeted', 11, 2);
+            $table->decimal('budgeted', 11, 2)->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');

@@ -8,7 +8,7 @@ class BudgetPeriod extends Model
 {
     public function items()
     {
-        return $this->belongsToMany(BudgetItem::class, 'budget_item_links', 'budget_item_id', 'budget_period_id');
+        return $this->belongsToMany(BudgetItem::class, 'budget_item_links', 'budget_period_id', 'budget_item_id');
     }
 
 }

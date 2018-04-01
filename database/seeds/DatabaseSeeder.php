@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $thesesse->save();
 
         $budget = $thesesse->budgets()->create([
-            'name'=>'porno'
+            'name'=>'porno',
+            'start_day' => 17
         ]);
 
         $categories = $budget->categories()->createMany([
@@ -50,6 +51,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $period = $budget->periods()->create([
+            'name' => 'March 2018',
             'start_date'=>'2018-03-01 00:01:00',
             'end_date'=>'2018-03-31 00:01:00',
             'spent'=>5000,
@@ -67,8 +69,9 @@ class DatabaseSeeder extends Seeder
         
         $hotdogitem->recurring()->create([
             'type'=>'monthly',
-            'start_day'=>1,
-            'status'=>'active'
+            'start_day'=>5,
+            'status'=>'active',
+            'budget_id' => $budget->id
         ]);
 
         $spotifyitem = $categories[1]->items()->create([
@@ -82,8 +85,9 @@ class DatabaseSeeder extends Seeder
 
         $spotifyitem->recurring()->create([
             'type'=>'monthly',
-            'start_day'=>15,
-            'status'=>'active'
+            'start_day'=>21,
+            'status'=>'active',
+            'budget_id' => $budget->id
         ]);
 
         $suitem = $categories[0]->items()->create([
@@ -97,15 +101,9 @@ class DatabaseSeeder extends Seeder
         $suitem->recurring()->create([
             'type'=>'monthly',
             'start_day'=>1,
-            'status'=>'disabled'
+            'status'=>'disabled',
+            'budget_id' => $budget->id
         ]);
-
-
-        /*$recurring = $budget->recurrings()->create([
-            'type'=>'monthly',
-            'status'=>'active'
-            'start_day'=>1
-        ]);*/
 
         
     }
