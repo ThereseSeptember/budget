@@ -86,11 +86,16 @@
             </tr>
           </thead>
           <tbody>
+            @foreach($upcomming as $upcommingItem)
             <tr>
-              <td>Spotify</td>
-              <td class="has-text-danger">-149,00 kr</td>
-              <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-music"></i></span><span>Spotify</span></span></td>
-              <td><abbr title="12-12-2018">In 2 days</abbr></td>
+              <td>{{ $upcommingItem->name }}</td>
+              @if($upcommingItem->type == 'expense')
+              <td class="has-text-danger">-{{ number_format($upcommingItem->price, 2, ',', '.') }} kr</td>
+              @else
+              <td class="has-text-success">{{ number_format($upcommingItem->price, 2, ',', '.') }} kr</td>
+              @endif
+            <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-{{ $upcommingItem->category->icon }}"></i></span><span>{{ $upcommingItem->category->name }}</span></span></td>
+            <td><abbr title="{{ $upcommingItem->occured_at->format('d-m-Y') }}">{{ $upcommingItem->occured_at->diffForHumans() }}</abbr></td>
               <td>
                 <p class="field">
                   <a class="button is-small is-dark">
@@ -106,27 +111,7 @@
                 </p>
               </td>
             </tr>
-            <tr>
-              <td>D2F Server (Tommy)</td>
-              <td class="has-text-success">50,00 kr</td>
-              <td><span class="tag is-primary"><span class="icon is-small"><i class="fal fa-server"></i></span><span>Server</span></span>
-              </td>
-              <td><abbr title="15-12-2018">In 5 days</abbr></td>
-              <td>
-                <p class="field">
-                  <a class="button is-small is-dark">
-                    <span class="icon is-small">
-                        <i class="fal fa-pencil"></i>
-                    </span>
-                  </a>
-                  <a class="button is-small is-danger">
-                    <span class="icon is-small">
-                        <i class="fal fa-times"></i>
-                    </span>
-                  </a>
-                </p>
-              </td>
-            </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

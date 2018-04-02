@@ -54,17 +54,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($budget->categories as $category)
+                @foreach($categories as $category)
                 <tr>
                         <td>
                             <a class="button is-primary">
                                 <span class="icon is-small">
-                                <i class="fal fa-{{ $category->icon }}"></i>
+                                <i class="fal fa-{{ $category['icon'] }}"></i>
                                 </span>
                             </a>
                         </td>
-                        <td colspan="2">{{ $category->name }}</td>
-                        <td>25,00 kr</td>
+                        <td colspan="2">{{ $category['name'] }}</td>
+                        <td>{{ number_format($category['pivot']['budgeted'], 2, ',', '.') }} kr</td>
                         <td class="has-text-success">150,00 kr</td>
                         <td><progress class="progress is-primary" value="0" max="100">0%</progress></td>
                         <td>
@@ -82,19 +82,24 @@
                             </p>
                         </td>
                     </tr>
-                    @foreach($category->subCategories as $subCategory)
+                    @foreach($category['sub'] as $subCategory)
                     <tr>
                         <td></td>
                             <td style="width:3%">
                                 <a class="button is-primary">
                                     <span class="icon is-small">
-                                    <i class="fal fa-{{ $subCategory->icon }}"></i>
+                                    <i class="fal fa-{{ $subCategory['icon'] }}"></i>
                                     </span>
                                 </a>
                             </td>
-                            <td>{{ $subCategory->name }}</td>
-                            <td>25,00 kr</td>
+                            <td>{{ $subCategory['name'] }}</td>
+                            @if(is_null($subCategory['pivot']['budgeted']))
+                            <td>-</td>
+                            <td>-</td>
+                            @else
+                            <td>{{ number_format($subCategory['pivot']['budgeted'], 2, ',', '.') }} kr</td>
                             <td class="has-text-success">150,00 kr</td>
+                            @endif
                             <td><progress class="progress is-primary" value="0" max="100">0%</progress></td>
                             <td>
                                 <p class="field">

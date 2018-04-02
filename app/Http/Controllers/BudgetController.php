@@ -59,31 +59,55 @@ class BudgetController extends Controller
                 $budgetItem->save();
                 $savedIds[] = $budgetItem->id;
             }
+            $period->items()->attach($savedIds);   
+            
+            $lastPeriod = $period->previous()->load('categories');
+            if(!is_null($lastPeriod))
+            {
+                foreach($lastPeriod->categories as $category)
+                {
+                    $period->categories()->attach($category->id, ['budgeted' => $category->pivot->budgeted]);
+                }
+            }
 
-            $period->items()->attach($savedIds);           
+            
         }
+
+        $upcomming = $period->items()->where('occured_at', '>', \DB::raw('now()'))->orderBy('occured_at')->with('category')->get();
 
         return view('budgets.overview.main', [
             'title'=>$budget->name, //$title
             'subtitle'=>'Overview', //$subtitle
-            'budget'=>$budget       //$budget
+            'budget'=>$budget,
+            'upcomming'=> $upcomming       //$budget
         ]);
     }
 
     public function categories($budgetId)
     {
         $budget = \App\Budget::find($budgetId);
-        $budget->load([
-            'categories' => function($query){
-                $query->whereNull('parent_id')->orderBy('name');
-            }, 
-            'categories.subCategories' => function($query) {
-                $query->orderBy('name');
-            }]);
+        $currentPeriod = \App\BudgetPeriod::where('budget_id', $budgetId)->latest()
+        ->with(['categories' => function($query) {
+            $query->orderBy('parent_id');
+        }])->first();
+
+        $list = [];
+        foreach($currentPeriod->categories as $category)
+        {
+            $category = $category->toArray();
+            if (is_null($category['parent_id']))
+            {
+                $list[$category['id']] = $category;
+                $list[$category['id']]['sub'] = [];
+            }
+            else
+                $list[$category['parent_id']]['sub'][] = $category;
+        }
         return view('budgets.categories.main', [
             'title'=>$budget->name,
             'subtitle'=>'Categories',
-            'budget'=>$budget
+            'budget'=>$budget,
+            'categories' => $list
         ]);
     }
 
@@ -101,11 +125,30 @@ class BudgetController extends Controller
     public function newEntry($budgetId)
     {
         $budget = \App\Budget::find($budgetId);
+        $categories = $budget->categories()->get();
         return view('budgets.overview.new', [
             'title'=>$budget->name,
             'subtitle'=>'New Entry',
-            'budget'=>$budget
+            'budget'=>$budget,
+            'categories' => $categories
         ]);
+    }
+
+    public function doNewEntry($budgetId)
+    {
+        $currentPeriod = \App\BudgetPeriod::where('budget_id', $budgetId)->latest()->first();
+        $budget = \App\Budget::find($budgetId);
+        $item = new \App\BudgetItem;
+        $item->category_id = request('category');
+        $item->name = request('name');
+        $item->store = "";
+        $item->price = str_replace(',', '.', request('amount'));
+        $item->type = request('type');
+        $item->occured_at = date('Y-m-d H:i:s');
+        $item->save();
+
+        $currentPeriod->items()->attach($item->id);
+        return redirect()->route('details', [$budgetId]);
     }
 
     public function newCategory($budgetId)

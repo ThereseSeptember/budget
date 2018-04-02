@@ -15,4 +15,10 @@ class Category extends Model
     {
         return $this->hasMany(BudgetItem::class);
     }
+
+    public function periods()
+    {
+        return $this->belongsToMany(BudgetPeriod::class, 'category_periods', 'category_id', 'period_id')->withPivot('budgeted')->withTimestamps();
+    }
+
 }

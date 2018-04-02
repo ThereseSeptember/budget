@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $budget = $thesesse->budgets()->create([
             'name'=>'porno',
-            'start_day' => 17
+            'start_day' => 1
         ]);
 
         $categories = $budget->categories()->createMany([
@@ -58,6 +58,15 @@ class DatabaseSeeder extends Seeder
             'income'=>6000,
             'balance'=>1000
         ]);
+
+        
+        $period->categories()->attach($categories[0]->id, ['budgeted' => 250]);
+        $period->categories()->attach($categories[1]->id, ['budgeted' => 500]);
+        $period->categories()->attach($categories[2]->id, ['budgeted' => 2000]);
+
+        $period->categories()->attach($funandgames[0]->id, ['budgeted' => 100]);
+        $period->categories()->attach($funandgames[1]->id);
+
 
         $hotdogitem = $categories[2]->items()->create([
             'name' => 'Hotdog',
